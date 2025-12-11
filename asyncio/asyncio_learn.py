@@ -27,9 +27,9 @@ async def fetch_data(url):
                 soup = BeautifulSoup(html, "html.parser")
                 price_spans = soup.find_all("span", style="font-size:24px;")
                 if len(price_spans) >= 2:
-                    min_price = price_spans[0].text.split()
-                    max_price = price_spans[1].text.split()
-                    print(min_price, max_price)
+                    min_price = price_spans[0].text
+                    max_price = price_spans[1].text
+                    print(min_price, max_price, sep="\n")
                 else:
                     print("not found")
             else:
@@ -37,4 +37,4 @@ async def fetch_data(url):
                 return None
 
 if __name__ == ("__main__"):
-    asyncio.run(fetch_data("https://hotline.ua/ua/computer-moduli-pamyati-dlya-pk-i-noutbukov/sk-hynix-8-gb-ddr4-2666-mhz-hma81gs6cjr8n-vk/"))
+    asyncio.run(fetch_data("https://hotline.ua/ua/computer-moduli-pamyati-dlya-pk-i-noutbukov/kingston-8-gb-so-dimm-ddr4-2666-mhz-kcp426ss88/"))
