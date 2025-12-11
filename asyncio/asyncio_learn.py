@@ -1,15 +1,40 @@
+"""
+Async Web Scraper for Hotline.ua Product Prices
+
+This script asynchronously fetches a webpage from Hotline.ua (Ukrainian e-commerce platform)
+and extracts minimum and maximum prices for a specific product.
+
+Key components:
+1. aiohttp - for asynchronous HTTP requests (non-blocking I/O)
+2. BeautifulSoup - for HTML parsing and data extraction
+3. asyncio - for running the async event loop
+
+The script looks for price elements with inline style "font-size:24px;"
+which appear to be the price display format on Hotline.ua product pages.
+
+Note: Web scraping may violate website terms of service. Use responsibly with rate limiting.
+"""
+
 import aiohttp
 import asyncio
+from bs4 import BeautifulSoup
 
-
-async def url_one(url):
+async def fetch_data(url):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             html = await response.text()
-            return html[:500]
-async def main():
-    url = "https://httpbin.org/html"
-    result = await url_one(url)
-    print(result)
+            if response.status == 200:
+                soup = BeautifulSoup(html, "html.parser")
+                price_spans = soup.find_all("span", style="font-size:24px;")
+                if len(price_spans) >= 2:
+                    min_price = price_spans[0].text.split()
+                    max_price = price_spans[1].text.split()
+                    print(min_price, max_price)
+                else:
+                    print("Незнайдено")
+            else:
+                print(f"Помилка {response.status}")
+                return None
 
-asyncio.run(main())
+if __name__ == ("__main__"):
+    asyncio.run(fetch_data("https://hotline.ua/ua/computer-moduli-pamyati-dlya-pk-i-noutbukov/sk-hynix-8-gb-ddr4-2666-mhz-hma81gs6cjr8n-vk/"))
