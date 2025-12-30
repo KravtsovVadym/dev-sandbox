@@ -49,5 +49,25 @@ class LinkedList:
         self.size -= 1
         return data
 
+    def remove_last(self):
+        if self.head is None:
+            return None
 
-        # Create function, remove last data
+        current = self.head
+        while current.next.next:
+            current = current.next
+        current.next = None
+        self.talt = current
+        self.size -= 1
+
+    def show_data(self):
+        if not self.size:
+            print("the list is empty")
+        current = self.head
+        while current:
+            print(current.data)
+            current = current.next
+
+
+
+
