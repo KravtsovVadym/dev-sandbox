@@ -56,3 +56,45 @@ def config():
         soup = BeautifulSoup(f.read(), 'lxml')
 
     return soup
+
+def parse_title(soup):
+    try:
+        return soup.find('h1', class_="item-header").text.strip()
+    except AttributeError:
+        return  None
+
+
+def parse_color(soup):
+    try:
+        return soup.find('a', title=lambda s: s and "колір" in s.lower()).text.strip()
+    except AttributeError:
+        return None
+
+
+def parse_product_code(soup):
+    try:
+        return  soup.find('span', class_="code-value").text.strip()
+    except AttributeError:
+        return None
+
+
+def parse_manufacturer(soup):
+    try:
+        return  soup.find('span', string="Виробник").find_next("span").text.strip()
+    except AttributeError:
+        return  None
+
+
+def parse_img_url(soup):
+    try:
+        block_a_img = soup.find_all('a', class_="image-link")
+        return  [a.find('img')['src'] for a in block_a_img]
+    except AttributeError:
+        return  None
+
+
+def parse_review_count(soup):
+    try:
+        return  int(''.join(soup.find('div', class_="rating-block").find_next('span').text))
+    except (AttributeError, ValueError):
+        return  None
