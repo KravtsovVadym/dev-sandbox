@@ -129,3 +129,24 @@ def parse_price(soup):
         return price, price_discount
 
     return price, price_discount
+
+def parse_memory(soup):
+    a_tag = soup.find('a', title=lambda s: s and "вбудована пам'ять" in s.lower())
+    memory = None
+    unit = None
+    try:
+        # Parsing logic (memory size)
+        # Integer values ​​only
+        memory = int(''.join(filter(str.isdigit, a_tag.text)))
+    except (AttributeError, ValueError) as e:
+        return memory, unit
+    # Parsing logic (memory units)
+    try:
+        # Literal values only
+        unchek_unit = ''.join(filter(str.isalpha, a_tag.text.upper()))
+        if unchek_unit in ['MB', 'GB', 'TB', 'ГБ', 'МБ', 'ТБ']:
+            unit = unchek_unit
+    except (AttributeError, ValueError) as e:
+        return memory, unit
+
+    return memory, unit
