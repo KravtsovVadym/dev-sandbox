@@ -98,3 +98,34 @@ def parse_review_count(soup):
         return  int(''.join(soup.find('div', class_="rating-block").find_next('span').text))
     except (AttributeError, ValueError):
         return  None
+
+
+def parse_screen_diagonal(soup):
+    try:
+        raw_text = soup.find('a', title=lambda s: s and "діагональ екрану" in s.lower()).text.strip()
+        return  float(''.join(filter(str.isdigit, raw_text)))
+    except (AttributeError, ValueError):
+        return  None
+
+
+def parse_display_resolution(soup):
+    try:
+        return soup.find('a', title=lambda s: s and "роздільна здатність" in s.lower()).text.strip()
+    except AttributeError as e:
+        return  None
+
+
+def parse_price(soup):
+    price = None
+    price_discount = None
+
+    try:
+        block_div_prc = soup.find('div', {'data-product-id': '0'}).find_all('span')
+        price = int(''.join(filter(str.isdigit, block_div_prc[0].text)))
+
+        if len(block_div_prc) == 2:
+            return  int(''.join(filter(str.isdigit, block_div_prc[1].text)))
+    except (AttributeError, IndexError, ValueError):
+        return price, price_discount
+
+    return price, price_discount
