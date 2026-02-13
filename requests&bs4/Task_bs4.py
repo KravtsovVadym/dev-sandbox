@@ -150,3 +150,89 @@ def parse_memory(soup):
         return memory, unit
 
     return memory, unit
+
+
+def parse_characteristic(soup):
+    all_chr = {}
+    # The main unit with all the characteristics
+    block_div_chr = soup.find('div', class_="specs-container")
+    # Blocks that contain names and characteristics
+    block_div_item = block_div_chr.find_all('div')
+
+    for div_tag in block_div_item:
+        h3_key = None  # Character block name
+        try:
+            if (h3_tag := div_tag.find('h3')):
+                h3_key = h3_tag.text.strip()
+        except AttributeError as e:
+            return f"Error block characteristics:\n{e}"
+
+        if not h3_tag:
+            continue
+
+        if not div_tag.find('div'):
+            continue
+        # A block that contains only characteristics by category
+        blocks = div_tag.find('div').find_all('div')
+        desc_chr = {}  # To store title and feature
+
+        # Parse recursive all title with feature
+        for block_div in blocks:
+            desc_title = None
+            desc_feat = None
+
+            spans = block_div.find_all('span')
+
+            if not spans:
+                continue
+
+            try:  # This block title 'chr'
+                desc_title = spans[0].text
+            except AttributeError:
+                desc_title = None
+
+            # This block feature
+            if len(spans) > 1:
+                try:
+                    desc_feat = ' '.join(spans[1].text.split())
+                except AttributeError:
+                    desc_feat = None
+            else:
+                continue
+
+            desc_chr[desc_title] = desc_feat
+        all_chr[h3_key] = desc_chr
+
+    return all_chr
+
+def main():
+    soup = config()
+    # Prevents functions from being retriggered
+    memory_size, memory_unit = parse_memory(soup)
+    price, price_discount = parse_price(soup)
+    product = {  # Fields in database
+        'title': parse_title(soup),
+        'color': parse_color(soup),
+        'memory_size': memory_size,
+        'memory_unit': memory_unit,
+        'manufacturer': parse_manufacturer(soup),
+        'price': price,
+        'price_discount': price_discount,
+        'img_ulr': parse_img_url(soup),
+        'product_code': parse_product_code(soup),
+        'review_count': parse_review_count(soup),
+        'screen_diagonal': parse_screen_diagonal(soup),
+        'display_resolution': parse_display_resolution(soup),
+        'characteristics': parse_characteristic(soup)
+    }
+
+    with open('files/parse_data.json', 'w', encoding='utf-8') as file:
+        json.dump(product, file, ensure_ascii=False, indent=4)
+
+    pprint(product)
+
+
+
+
+if __name__ == '__main__':
+    main()
