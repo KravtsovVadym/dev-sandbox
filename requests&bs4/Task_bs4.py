@@ -8,7 +8,7 @@ memory_unit
 manufacturer
 price
 price_discount
-img_ulr
+img_url
 product_code
 review_count
 screen_diagonal
@@ -21,6 +21,7 @@ characteristics
 
 from bs4 import BeautifulSoup
 import requests
+import json
 from pprint import pprint
 
 def config():
@@ -204,6 +205,7 @@ def parse_characteristic(soup):
         all_chr[h3_key] = desc_chr
 
     return all_chr
+
 
 def main():
     soup = config()
