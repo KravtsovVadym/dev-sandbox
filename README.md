@@ -14,12 +14,12 @@ The course structure is well thought out, progressing from basic concepts to mor
 
 ###  Matrix Operations
 - **Latin Squares** - Validating mathematical structures with specific constraints
-- **Queen Movement** ♕ - Chess-based coordinate systems and attack patterns  
-- **Diagonal Patterns** 📐 - Creating matrices with distance-based values
+- **Queen Movement** - Chess-based coordinate systems and attack patterns  
+- **Diagonal Patterns** - Creating matrices with distance-based values
 
 ###  Pattern Generation
-- **ASCII Art** ❄️ - Generating visual patterns with characters
-- **Matrix Transformations** 🔄 - Transposition and symmetry operations
+- **ASCII Art** - Generating visual patterns with characters
+- **Matrix Transformations** - Transposition and symmetry operations
 
 ##  Featured Solutions
 
