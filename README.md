@@ -6,9 +6,7 @@
 
 ##  About This Repository
 
-This repository contains my solutions to various Python programming challenges from an excellent online course. I'm genuinely enjoying the problem-solving process and the way each task builds upon previous concepts. 
-
-The course structure is well thought out, progressing from basic concepts to more complex algorithmic challenges that really make you think! 💭
+This repository contains my solutions to various Python programming.
 
 ##  Problem Categories
 
@@ -57,14 +55,6 @@ The course structure is well thought out, progressing from basic concepts to mor
 - **Documentation**: Each solution includes problem translation and explanation
 - **Testing**: Solutions verified against provided test cases
 
-##  Course Highlights
-
-What I particularly appreciate about this course:
-
-- **Progressive Difficulty**: Each problem builds naturally on previous concepts
-- **Real Applications**: Problems connect to practical programming scenarios  
-- **Clean Problem Statements**: Well-defined inputs, outputs, and constraints
-- **Variety**: Good mix of mathematical, logical, and algorithmic challenges
 
 ##  Problem Examples
 
@@ -75,10 +65,4 @@ The repository includes solutions for problems involving:
 - Algorithmic problem solving
 - Mathematical concepts in programming
 
-##  Current Status
 
-Actively working through the course material and enjoying the structured approach to learning. Each solved problem feels like a small victory and contributes to building stronger programming intuition.
-
----
-
-**Note**: This is a personal learning repository. Solutions are my own implementations, focused on clarity and correctness rather than optimization.
